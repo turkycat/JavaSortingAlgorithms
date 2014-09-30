@@ -1,3 +1,4 @@
+package Sorting;
 public class QuickSorter<E extends Comparable<? super E>> extends AbstractSorter<E>
 {
 

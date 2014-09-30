@@ -1,3 +1,4 @@
+package Sorting;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -9,6 +10,10 @@ public abstract class AbstractSorter<T extends Comparable<? super T>>
 	public T[] sorted;
 	public boolean sortingComplete;
 	public long computeTime;
+	
+	//all extended classes must only implement this function
+	protected abstract void _sort();
+	
 	
 	@SuppressWarnings( "unchecked" )
 	public AbstractSorter( T[] values )
@@ -28,9 +33,6 @@ public abstract class AbstractSorter<T extends Comparable<? super T>>
 		}
 	}
 	
-	
-	protected abstract void _sort();
-	
 	public void sort()
 	{
 		if( sortingComplete ) return;
@@ -39,11 +41,6 @@ public abstract class AbstractSorter<T extends Comparable<? super T>>
 		_sort();
 		computeTime = System.currentTimeMillis() - startTime;
 		sortingComplete = true;
-	}
-	
-	public long getComputeTimeMillis()
-	{
-		return computeTime;
 	}
 	
 	
@@ -76,17 +73,70 @@ public abstract class AbstractSorter<T extends Comparable<? super T>>
 		return Arrays.toString( sorted );
 	}
 	
+
+	public long getComputeTimeMillis()
+	{
+		return computeTime;
+	}
 	
+
+	
+//	@SuppressWarnings( { "rawtypes", "unchecked" } )
+//	public static <T extends AbstractSorter<?>> AbstractSorter<Integer> buildFrom( int[] arr, Class<T> cla )
+//	{
+//		if( arr == null || arr.length < 1 ) throw new IllegalArgumentException();
+//		Integer[] data = new Integer[ arr.length ];
+//		for( int i = 0; i < arr.length; ++i )
+//		{
+//			data[i] = new Integer( arr[i] );
+//		}
+//
+//		Constructor<?> cons = null;
+//		try
+//		{
+//			Class[] type = { Comparable[].class };
+//			cons = cla.getConstructor( type );
+//			
+//			if( cons != null )
+//			{
+//				Object[] cdata = { data };
+//				return (AbstractSorter<Integer>) cons.newInstance( cdata );
+//			}
+//		}
+//		catch( NoSuchMethodException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		catch( SecurityException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		catch( InstantiationException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		catch( IllegalAccessException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		catch( IllegalArgumentException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		catch( InvocationTargetException e )
+//		{
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
+
 	
 	@SuppressWarnings( { "rawtypes", "unchecked" } )
-	public static <T extends AbstractSorter<?>> AbstractSorter<Integer> buildFrom( int[] arr, Class<T> cla )
+	public static <C extends Comparable<? super C>, T extends AbstractSorter<?>> AbstractSorter<C> buildFrom( C[] arr, Class<T> cla )
 	{
 		if( arr == null || arr.length < 1 ) throw new IllegalArgumentException();
-		Integer[] data = new Integer[ arr.length ];
-		for( int i = 0; i < arr.length; ++i )
-		{
-			data[i] = new Integer( arr[i] );
-		}
+		
 
 		Constructor<?> cons = null;
 		try
@@ -96,38 +146,32 @@ public abstract class AbstractSorter<T extends Comparable<? super T>>
 			
 			if( cons != null )
 			{
-				Object[] cdata = { data };
-				return (AbstractSorter<Integer>) cons.newInstance( cdata );
+				Object[] cdata = { Arrays.copyOf( arr, arr.length ) };
+				return (AbstractSorter<C>) cons.newInstance( cdata );
 			}
 		}
 		catch( NoSuchMethodException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch( SecurityException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch( InstantiationException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch( IllegalAccessException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch( IllegalArgumentException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch( InvocationTargetException e )
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
