@@ -1,8 +1,8 @@
 package Sorting;
-public class QuickSorter<E extends Comparable<? super E>> extends AbstractSorter<E>
+public class QuickSorter<T extends Comparable<? super T>> extends AbstractSorter<T>
 {
 
-	public QuickSorter( E[] values )
+	public QuickSorter( T[] values )
 	{
 		super( values );
 	}
@@ -38,7 +38,7 @@ public class QuickSorter<E extends Comparable<? super E>> extends AbstractSorter
 	private int partition( int left, int right )
 	{
 		if( left >= right ) return left;
-		E pivot = sorted[left];
+		T pivot = sorted[left];
 		int pivotIndex = left, i = ( left + 1 ), j = right;
 		while( i <= j )
 		{
@@ -58,12 +58,5 @@ public class QuickSorter<E extends Comparable<? super E>> extends AbstractSorter
 		}
 		swap( pivotIndex, j );
 		return j;
-	}
-
-	private void swap( int firstIndex, int secondIndex )
-	{
-		E temp = sorted[secondIndex];
-		sorted[secondIndex] = sorted[firstIndex];
-		sorted[firstIndex] = temp;
 	}
 }

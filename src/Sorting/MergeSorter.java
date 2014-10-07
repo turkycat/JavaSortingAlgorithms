@@ -2,10 +2,10 @@ package Sorting;
 
 import java.util.Arrays;
 
-public class MergeSorter<E extends Comparable<? super E>> extends AbstractSorter<E>
+public class MergeSorter<T extends Comparable<? super T>> extends AbstractSorter<T>
 {
 
-	public MergeSorter( E[] values )
+	public MergeSorter( T[] values )
 	{
 		super( values );
 	}
@@ -29,7 +29,7 @@ public class MergeSorter<E extends Comparable<? super E>> extends AbstractSorter
 	
 	private void merge( int left, int mid, int right )
 	{
-		E[] cache = Arrays.copyOfRange( sorted, left, right + 1 );
+		T[] cache = Arrays.copyOfRange( sorted, left, right + 1 );
 		
 		mid = mid - left;
 		right = right - left;
