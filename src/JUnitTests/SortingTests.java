@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import Sorting.AbstractSorter;
 import Sorting.BubbleSorter;
+import Sorting.CocktailShakerSorter;
 import Sorting.GnomeSorter;
 import Sorting.HeapSorter;
 import Sorting.InsertionSorter;
@@ -667,4 +668,78 @@ public class SortingTests
 		sortAndVerify( gnome, random_large_sorted, random_large_sorted );
 	}
 
+
+
+
+
+
+	@Test
+	public void cocktailShakerSortBasic()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( zeroToNineUnsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, zeroToNineUnsorted, zeroToNine  );
+	}
+
+	@Test
+	public void cocktailShakerSortShuffledSmall()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_small_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void cocktailShakerSortShuffledMedium()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_medium_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void cocktailShakerSortShuffledLarge()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_large_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, shuffled_large_unsorted, shuffled_large_sorted  );
+	}
+	
+	@Test
+	public void cocktailShakerSortSmallUnsorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_small_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_small_unsorted, random_small_sorted );
+	}
+	
+	@Test
+	public void cocktailShakerSortSmallSorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_small_sorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_small_sorted, random_small_sorted );
+	}
+
+	@Test
+	public void cocktailShakerSortMediumUnsorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_medium_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_medium_unsorted, random_medium_sorted );
+	}
+	
+	@Test
+	public void cocktailShakerSortMediumSorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_medium_sorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_medium_sorted, random_medium_sorted );
+	}
+
+	@Test
+	public void cocktailShakerSortLargeUnsorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_large_unsorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void cocktailShakerSortLargeSorted()
+	{
+		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_large_sorted , CocktailShakerSorter.class );
+		sortAndVerify( cocktailShaker, random_large_sorted, random_large_sorted );
+	}
 }
