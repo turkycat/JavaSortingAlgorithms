@@ -22,7 +22,7 @@ public class SortingTests
 	public static final int LARGE_ELEMENT_COUNT = 50000;
 	public static final int MEDIUM_ELEMENT_COUNT = 1000;
 	public static final int SMALL_ELEMENT_COUNT = 10;
-	private static final Random random = new Random(7);
+	private static final Random random = new Random();
 
 
 	Integer[] zeroToNineUnsorted;
@@ -31,10 +31,14 @@ public class SortingTests
 	Integer[] random_large_sorted;
 	Integer[] random_medium_unsorted;
 	Integer[] random_medium_sorted;
-	Integer[] shuffled_small_unsorted;
-	Integer[] shuffled_small_sorted;
 	Integer[] random_small_unsorted;
 	Integer[] random_small_sorted;
+	Integer[] shuffled_large_unsorted;
+	Integer[] shuffled_large_sorted;
+	Integer[] shuffled_medium_unsorted;
+	Integer[] shuffled_medium_sorted;
+	Integer[] shuffled_small_unsorted;
+	Integer[] shuffled_small_sorted;
 	
 
 	
@@ -62,12 +66,32 @@ public class SortingTests
 		fillWithRandom( random_medium_unsorted );
 		fillWithRandom( random_small_unsorted );
 		
-		//fill shuffled array with values
+		//initialize shuffle arrays
+		shuffled_large_sorted = new Integer[LARGE_ELEMENT_COUNT];
+		shuffled_medium_sorted = new Integer[MEDIUM_ELEMENT_COUNT];
 		shuffled_small_sorted = new Integer[SMALL_ELEMENT_COUNT];
-		for( int i = 0; i < shuffled_small_sorted.length; ++i )
+
+		//fill shuffled arrays with ascending values
+		int i;
+		for( i = 0; i < shuffled_small_sorted.length; ++i )
 		{
+			shuffled_large_sorted[i] = i;
+			shuffled_medium_sorted[i] = i;
 			shuffled_small_sorted[i] = i;
 		}
+		for( ; i < shuffled_medium_sorted.length; ++i )
+		{
+			shuffled_large_sorted[i] = i;
+			shuffled_medium_sorted[i] = i;
+		}
+		for( ; i < shuffled_large_sorted.length; ++i )
+		{
+			shuffled_large_sorted[i] = i;
+		}
+
+		//shuffle the arrays to create unsorted copies
+		shuffled_large_unsorted = shuffle( shuffled_large_sorted );
+		shuffled_medium_unsorted = shuffle( shuffled_medium_sorted );
 		shuffled_small_unsorted = shuffle( shuffled_small_sorted );
 		
 		//copy random unsorted arrays
@@ -139,6 +163,20 @@ public class SortingTests
 		AbstractSorter<Integer> quick = AbstractSorter.buildFrom( shuffled_small_unsorted , QuickSorter.class );
 		sortAndVerify( quick, shuffled_small_unsorted, shuffled_small_sorted  );
 	}
+
+	@Test
+	public void quickSortShuffledMedium()
+	{
+		AbstractSorter<Integer> quick = AbstractSorter.buildFrom( shuffled_medium_unsorted , QuickSorter.class );
+		sortAndVerify( quick, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void quickSortShuffledLarge()
+	{
+		AbstractSorter<Integer> quick = AbstractSorter.buildFrom( shuffled_large_unsorted , QuickSorter.class );
+		sortAndVerify( quick, shuffled_large_unsorted, shuffled_large_sorted  );
+	}
 	
 	@Test
 	public void quickSortSmallUnsorted()
@@ -184,6 +222,8 @@ public class SortingTests
 
 
 	
+	
+	
 	@Test
 	public void mergeSortBasic()
 	{
@@ -196,6 +236,20 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> merge = AbstractSorter.buildFrom( shuffled_small_unsorted , MergeSorter.class );
 		sortAndVerify( merge, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void mergeSortShuffledMedium()
+	{
+		AbstractSorter<Integer> merge = AbstractSorter.buildFrom( shuffled_medium_unsorted , MergeSorter.class );
+		sortAndVerify( merge, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void mergeSortShuffledLarge()
+	{
+		AbstractSorter<Integer> merge = AbstractSorter.buildFrom( shuffled_large_unsorted , MergeSorter.class );
+		sortAndVerify( merge, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
@@ -242,6 +296,8 @@ public class SortingTests
 
 
 	
+	
+	
 	@Test
 	public void insertionSortBasic()
 	{
@@ -254,6 +310,20 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> insertion = AbstractSorter.buildFrom( shuffled_small_unsorted , InsertionSorter.class );
 		sortAndVerify( insertion, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void insertionSortShuffledMedium()
+	{
+		AbstractSorter<Integer> insertion = AbstractSorter.buildFrom( shuffled_medium_unsorted , InsertionSorter.class );
+		sortAndVerify( insertion, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void insertionSortShuffledLarge()
+	{
+		AbstractSorter<Integer> insertion = AbstractSorter.buildFrom( shuffled_large_unsorted , InsertionSorter.class );
+		sortAndVerify( insertion, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
@@ -301,6 +371,8 @@ public class SortingTests
 
 
 	
+	
+	
 	@Test
 	public void selectionSortBasic()
 	{
@@ -313,6 +385,20 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> selection = AbstractSorter.buildFrom( shuffled_small_unsorted , SelectionSorter.class );
 		sortAndVerify( selection, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void selectionSortShuffledMedium()
+	{
+		AbstractSorter<Integer> selection = AbstractSorter.buildFrom( shuffled_medium_unsorted , SelectionSorter.class );
+		sortAndVerify( selection, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void selectionSortShuffledLarge()
+	{
+		AbstractSorter<Integer> selection = AbstractSorter.buildFrom( shuffled_large_unsorted , SelectionSorter.class );
+		sortAndVerify( selection, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
@@ -373,6 +459,20 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> bubble = AbstractSorter.buildFrom( shuffled_small_unsorted , BubbleSorter.class );
 		sortAndVerify( bubble, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void bubbleSortShuffledMedium()
+	{
+		AbstractSorter<Integer> bubble = AbstractSorter.buildFrom( shuffled_medium_unsorted , BubbleSorter.class );
+		sortAndVerify( bubble, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void bubbleSortShuffledLarge()
+	{
+		AbstractSorter<Integer> bubble = AbstractSorter.buildFrom( shuffled_large_unsorted , BubbleSorter.class );
+		sortAndVerify( bubble, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
@@ -435,6 +535,20 @@ public class SortingTests
 		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( shuffled_small_unsorted , HeapSorter.class );
 		sortAndVerify( heap, shuffled_small_unsorted, shuffled_small_sorted  );
 	}
+
+	@Test
+	public void heapSortShuffledMedium()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( shuffled_medium_unsorted , HeapSorter.class );
+		sortAndVerify( heap, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void heapSortShuffledLarge()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( shuffled_large_unsorted , HeapSorter.class );
+		sortAndVerify( heap, shuffled_large_unsorted, shuffled_large_sorted  );
+	}
 	
 	@Test
 	public void heapSortSmallUnsorted()
@@ -495,6 +609,20 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( shuffled_small_unsorted , GnomeSorter.class );
 		sortAndVerify( gnome, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void gnomeSortShuffledMedium()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( shuffled_medium_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void gnomeSortShuffledLarge()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( shuffled_large_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
