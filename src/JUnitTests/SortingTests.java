@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import Sorting.AbstractSorter;
 import Sorting.BubbleSorter;
+import Sorting.GnomeSorter;
 import Sorting.HeapSorter;
 import Sorting.InsertionSorter;
 import Sorting.MergeSorter;
@@ -475,6 +476,67 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_large_sorted , HeapSorter.class );
 		sortAndVerify( heap, random_large_sorted, random_large_sorted );
+	}
+
+
+
+
+
+
+	@Test
+	public void gnomeSortBasic()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( zeroToNineUnsorted , GnomeSorter.class );
+		sortAndVerify( gnome, zeroToNineUnsorted, zeroToNine  );
+	}
+
+	@Test
+	public void gnomeSortShuffledSmall()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( shuffled_small_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+	
+	@Test
+	public void gnomeSortSmallUnsorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_small_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_small_unsorted, random_small_sorted );
+	}
+	
+	@Test
+	public void gnomeSortSmallSorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_small_sorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_small_sorted, random_small_sorted );
+	}
+
+	@Test
+	public void gnomeSortMediumUnsorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_medium_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_medium_unsorted, random_medium_sorted );
+	}
+	
+	@Test
+	public void gnomeSortMediumSorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_medium_sorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_medium_sorted, random_medium_sorted );
+	}
+
+	@Test
+	public void gnomeSortLargeUnsorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_large_unsorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void gnomeSortLargeSorted()
+	{
+		AbstractSorter<Integer> gnome = AbstractSorter.buildFrom( random_large_sorted , GnomeSorter.class );
+		sortAndVerify( gnome, random_large_sorted, random_large_sorted );
 	}
 
 }
