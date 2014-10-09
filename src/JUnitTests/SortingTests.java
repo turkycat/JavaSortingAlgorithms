@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import Sorting.AbstractSorter;
 import Sorting.BubbleSorter;
+import Sorting.HeapSorter;
 import Sorting.InsertionSorter;
 import Sorting.MergeSorter;
 import Sorting.QuickSorter;
@@ -20,7 +21,7 @@ public class SortingTests
 	public static final int LARGE_ELEMENT_COUNT = 50000;
 	public static final int MEDIUM_ELEMENT_COUNT = 1000;
 	public static final int SMALL_ELEMENT_COUNT = 10;
-	private static final Random random = new Random();
+	private static final Random random = new Random(7);
 
 
 	Integer[] zeroToNineUnsorted;
@@ -82,11 +83,10 @@ public class SortingTests
 	
 	private static <T extends Comparable<? super T>> T[] shuffle( T[] shuffled_small_sorted )
 	{
-		Random randy = new Random();
 		T[] toReturn = Arrays.copyOf( shuffled_small_sorted, shuffled_small_sorted.length );
 		for( int i = toReturn.length - 1; i > 0; --i )
 		{
-			int index = randy.nextInt( i );
+			int index = random.nextInt( i );
 			swap( toReturn, i, index );
 		}
 		return toReturn;
@@ -414,6 +414,67 @@ public class SortingTests
 	{
 		AbstractSorter<Integer> bubble = AbstractSorter.buildFrom( random_large_sorted , BubbleSorter.class );
 		sortAndVerify( bubble, random_large_sorted, random_large_sorted );
+	}
+
+
+
+
+
+
+	@Test
+	public void heapSortBasic()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( zeroToNineUnsorted , HeapSorter.class );
+		sortAndVerify( heap, zeroToNineUnsorted, zeroToNine  );
+	}
+
+	@Test
+	public void heapSortShuffledSmall()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( shuffled_small_unsorted , HeapSorter.class );
+		sortAndVerify( heap, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+	
+	@Test
+	public void heapSortSmallUnsorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_small_unsorted , HeapSorter.class );
+		sortAndVerify( heap, random_small_unsorted, random_small_sorted );
+	}
+	
+	@Test
+	public void heapSortSmallSorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_small_sorted , HeapSorter.class );
+		sortAndVerify( heap, random_small_sorted, random_small_sorted );
+	}
+
+	@Test
+	public void heapSortMediumUnsorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_medium_unsorted , HeapSorter.class );
+		sortAndVerify( heap, random_medium_unsorted, random_medium_sorted );
+	}
+	
+	@Test
+	public void heapSortMediumSorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_medium_sorted , HeapSorter.class );
+		sortAndVerify( heap, random_medium_sorted, random_medium_sorted );
+	}
+
+	@Test
+	public void heapSortLargeUnsorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_large_unsorted , HeapSorter.class );
+		sortAndVerify( heap, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void heapSortLargeSorted()
+	{
+		AbstractSorter<Integer> heap = AbstractSorter.buildFrom( random_large_sorted , HeapSorter.class );
+		sortAndVerify( heap, random_large_sorted, random_large_sorted );
 	}
 
 }
