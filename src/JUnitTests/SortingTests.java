@@ -16,6 +16,8 @@ import Sorting.InsertionSorter;
 import Sorting.MergeSorter;
 import Sorting.QuickSorter;
 import Sorting.SelectionSorter;
+import Sorting.ShellSorter;
+import Sorting.ShellSorter.GapMode;
 
 
 public class SortingTests
@@ -671,75 +673,361 @@ public class SortingTests
 
 
 
-
-
 	@Test
-	public void cocktailShakerSortBasic()
+	public void cocktailSortBasic()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( zeroToNineUnsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, zeroToNineUnsorted, zeroToNine  );
 	}
 
 	@Test
-	public void cocktailShakerSortShuffledSmall()
+	public void cocktailSortShuffledSmall()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_small_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, shuffled_small_unsorted, shuffled_small_sorted  );
 	}
 
 	@Test
-	public void cocktailShakerSortShuffledMedium()
+	public void cocktailSortShuffledMedium()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_medium_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, shuffled_medium_unsorted, shuffled_medium_sorted  );
 	}
 
 	@Test
-	public void cocktailShakerSortShuffledLarge()
+	public void cocktailSortShuffledLarge()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( shuffled_large_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, shuffled_large_unsorted, shuffled_large_sorted  );
 	}
 	
 	@Test
-	public void cocktailShakerSortSmallUnsorted()
+	public void cocktailSortSmallUnsorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_small_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_small_unsorted, random_small_sorted );
 	}
 	
 	@Test
-	public void cocktailShakerSortSmallSorted()
+	public void cocktailSortSmallSorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_small_sorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_small_sorted, random_small_sorted );
 	}
 
 	@Test
-	public void cocktailShakerSortMediumUnsorted()
+	public void cocktailSortMediumUnsorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_medium_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_medium_unsorted, random_medium_sorted );
 	}
 	
 	@Test
-	public void cocktailShakerSortMediumSorted()
+	public void cocktailSortMediumSorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_medium_sorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_medium_sorted, random_medium_sorted );
 	}
 
 	@Test
-	public void cocktailShakerSortLargeUnsorted()
+	public void cocktailSortLargeUnsorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_large_unsorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_large_unsorted, random_large_sorted );
 	}
 	
 	@Test
-	public void cocktailShakerSortLargeSorted()
+	public void cocktailSortLargeSorted()
 	{
 		AbstractSorter<Integer> cocktailShaker = AbstractSorter.buildFrom( random_large_sorted , CocktailSorter.class );
 		sortAndVerify( cocktailShaker, random_large_sorted, random_large_sorted );
+	}
+
+
+
+	@Test
+	public void shellSortCiuraBasic()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( zeroToNineUnsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, zeroToNineUnsorted, zeroToNine  );
+	}
+
+	@Test
+	public void shellSortCiuraShuffledSmall()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( shuffled_small_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, shuffled_small_unsorted, shuffled_small_sorted  );
+	}
+
+	@Test
+	public void shellSortCiuraShuffledMedium()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( shuffled_medium_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, shuffled_medium_unsorted, shuffled_medium_sorted  );
+	}
+
+	@Test
+	public void shellSortCiuraShuffledLarge()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( shuffled_large_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, shuffled_large_unsorted, shuffled_large_sorted  );
+	}
+	
+	@Test
+	public void shellSortCiuraSmallUnsorted()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+	
+	@Test
+	public void shellSortCiuraSmallSorted()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( random_small_sorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_small_sorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortCiuraMediumUnsorted()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+	
+	@Test
+	public void shellSortCiuraMediumSorted()
+	{
+		AbstractSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_sorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_medium_sorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortCiuraLargeUnsorted()
+	{
+		AbstractSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortCiuraLargeSorted()
+	{
+		AbstractSorter<Integer> shellShaker = AbstractSorter.buildFrom( random_large_sorted , ShellSorter.class );
+		sortAndVerify( shellShaker, random_large_sorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortTokudaSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Tokuda );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortTokudaMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Tokuda );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortTokudaLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Tokuda );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortFrank_LazarusSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Frank_Lazarus );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortFrank_LazarusMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Frank_Lazarus );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortFrank_LazarusLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Frank_Lazarus );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortGonnet_BaezaYatesSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Gonnet_BaezaYates );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortGonnet_BaezaYatesMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Gonnet_BaezaYates );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortGonnet_BaezaYatesLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Gonnet_BaezaYates );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortHibbardSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Hibbard );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortHibbardMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Hibbard );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortHibbardLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Hibbard );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortKnuthSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Knuth );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortKnuthMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Knuth );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortKnuthLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Knuth );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortPrattSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Pratt );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortPrattMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Pratt );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortPrattLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Pratt );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortSedgewickOneSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickOne );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortSedgewickOneMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickOne );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortSedgewickOneLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickOne );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortSedgewickTwoSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickTwo );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortSedgewickTwoMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickTwo );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortSedgewickTwoLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.SedgewickTwo );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
+	}
+	
+	@Test
+	public void shellSortShellSmallUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_small_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Shell );
+		sortAndVerify( shellShaker, random_small_unsorted, random_small_sorted );
+	}
+
+	@Test
+	public void shellSortShellMediumUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_medium_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Shell );
+		sortAndVerify( shellShaker, random_medium_unsorted, random_medium_sorted );
+	}
+
+	@Test
+	public void shellSortShellLargeUnsorted()
+	{
+		ShellSorter<Integer> shellShaker = (ShellSorter<Integer>) AbstractSorter.buildFrom( random_large_unsorted , ShellSorter.class );
+		shellShaker.setGapMode( GapMode.Shell );
+		sortAndVerify( shellShaker, random_large_unsorted, random_large_sorted );
 	}
 }

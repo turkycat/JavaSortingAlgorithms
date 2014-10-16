@@ -1,9 +1,9 @@
 package Sorting;
 
-public class InsertionSorter<E extends Comparable<? super E>> extends AbstractSorter<E>
+public class InsertionSorter<T extends Comparable<? super T>> extends AbstractSorter<T>
 {
 
-	public InsertionSorter( E[] values )
+	public InsertionSorter( T[] values )
 	{
 		super( values );
 	}
@@ -14,11 +14,13 @@ public class InsertionSorter<E extends Comparable<? super E>> extends AbstractSo
 		for( int i = 1; i < sorted.length; ++i )
 		{
 			int j = i;
-			while( j > 0 && sorted[j].compareTo( sorted[ j - 1 ] ) < 0 )
+			T data = sorted[i];
+			while( j > 0 && sorted[j - 1].compareTo( data ) > 0 )
 			{
-				swap( j, j - 1 );
+				sorted[j] = sorted[j - 1];
 				j--;
 			}
+			sorted[j] = data;
 		}
 	}
 

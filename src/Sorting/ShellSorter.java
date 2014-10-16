@@ -13,8 +13,8 @@ public class ShellSorter<T extends Comparable<? super T>> extends AbstractSorter
 		Frank_Lazarus,		// O( n^(3/2) )
 		Hibbard,			// O( n^(3/2) )
 		Knuth,				// O( n^(3/2) )
-		SedgewickOne,			// O( n^(4/3)
-		SedgewickTwo,			// O( n^(4/3)
+		SedgewickOne,		// O( n^(4/3) )
+		SedgewickTwo,		// O( n^(4/3) )
 		Gonnet_BaezaYates,	// O( ? )
 		Tokuda,				// O( ? )
 		Ciura				// O( ? )
@@ -39,7 +39,21 @@ public class ShellSorter<T extends Comparable<? super T>> extends AbstractSorter
 	@Override
 	protected void _sort()
 	{
-		
+		for( int gap : gaps)
+		{
+		    for ( int i = gap; i < sorted.length; ++i )
+		    {
+		        T data = sorted[i];
+		        int j;
+		        
+		        for ( j = i; j >= gap && sorted[j - gap].compareTo( data ) > 0; j -= gap )
+		        {
+		            sorted[j] = sorted[j - gap];
+		        }
+		        sorted[j] = data;
+		    }
+
+		}
 	}
 	
 	
@@ -50,10 +64,21 @@ public class ShellSorter<T extends Comparable<? super T>> extends AbstractSorter
 	{
 		return gaps;
 	}
+	
+	
+	/**
+	 * allows the gap mode to be changed
+	 */
+	public void setGapMode( GapMode mode )
+	{
+		generateGaps( mode );
+	}
 
 	
 	/**
 	 * generates a series of gaps (usually) based upon a mathematical formula
+	 * 	formulas, their runtimes, and their authors taken from:
+	 * 	http://en.wikipedia.org/wiki/Shellsort
 	 */
 	private void generateGaps( GapMode mode )
 	{
@@ -159,11 +184,22 @@ public class ShellSorter<T extends Comparable<? super T>> extends AbstractSorter
 			{
 				gap = (int) Math.max( ( 5 * gap ) / 11, 1 );
 				calculatedGaps.add( gap );
-			} while( gap < n );
+			} while( gap > 1 );
 			
 			break;
 			
 		case Tokuda:
+			
+			// F(i) = ceiling[ ( 9^k - 4^k ) / ( 5 * 4^(k - 1) ]
+			do
+			{
+				double num = Math.pow( 9, k ) - Math.pow( 4, k );
+				double den = 5 * Math.pow( 4, k - 1 );
+				gap = (int) Math.ceil( num / den );
+				calculatedGaps.add( gap );
+				k++;
+			} while( gap < n );
+			
 			break;
 			
 		default:
@@ -223,6 +259,6 @@ public class ShellSorter<T extends Comparable<? super T>> extends AbstractSorter
 
 	public static void main(String[] args)
 	{
-		ShellSorter s = new ShellSorter( new Integer[1000], GapMode.Gonnet_BaezaYates );
+		ShellSorter s = new ShellSorter( new Integer[1000], GapMode.Tokuda );
 	}
 }
