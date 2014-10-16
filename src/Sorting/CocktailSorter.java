@@ -1,9 +1,9 @@
 package Sorting;
 
-public class CocktailShakerSorter<T extends Comparable<? super T>> extends AbstractSorter<T>
+public class CocktailSorter<T extends Comparable<? super T>> extends AbstractSorter<T>
 {
 
-	public CocktailShakerSorter( T[] values )
+	public CocktailSorter( T[] values )
 	{
 		super( values );
 	}
